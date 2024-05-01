@@ -9,13 +9,13 @@ app = Flask(__name__)
 
 # Load configuration from config.json
 def load_configuration():
+    global config
     try:
         with open("config.json") as f:
             config = json.load(f)
-        return config
     except FileNotFoundError:
         print("Configuration file 'config.json' not found.")
-        return None
+        config = None
 
 
 def fetch_metrics(config):
@@ -73,5 +73,5 @@ def metrics():
 
 
 if __name__ == "__main__":
-
-    app.run(host="0.0.0.0", port=8000)
+    load_configuration()  # Load configuration when the application starts
+    app.run(host="0.0.0.0", port=config.get("port"))

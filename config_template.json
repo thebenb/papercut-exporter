@@ -2,5 +2,6 @@
   "urls": [
     "A Complete URL (accessible from browser for example) of a PaperCut endpoint.",
     "Another URL as required"
-  ]
+  ],
+  "port": 8000
 }

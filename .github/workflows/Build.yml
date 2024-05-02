@@ -1,0 +1,42 @@
+name: Build Python App
+
+on:
+  push:
+    branches:
+      - stable
+  pull_request:
+    branches:
+      - stable
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pyminify pyinstaller
+
+    - name: Minify Python code
+      run: |
+        pyminify --gzip --keep-literals app_runner.py > app_runner_min.py
+
+    - name: Build and package Python app
+      run: |
+        pyinstaller --onefile --name papercut-exporter app_runner_min.py
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: papercut-exporter-windows
+        path: dist/papercut-exporter.exe

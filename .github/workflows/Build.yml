@@ -29,10 +29,7 @@ jobs:
 
     - name: Build and package Python app
       run: |
-        pyinstaller --onefile --name papercut-exporter app_runner.py
-
-    - name: List contents of current directory
-      run: ls dist
+        pyinstaller --onefile --name papercut-exporter.exe app_runner.py
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4.3.3

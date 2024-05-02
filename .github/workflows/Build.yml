@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5.10
       with:
         python-version: '3.12'
 
@@ -30,6 +30,9 @@ jobs:
     - name: Build and package Python app
       run: |
         pyinstaller --onefile --name papercut-exporter app_runner.py
+
+    - name: List contents of current directory
+      run: ls
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4.3.3

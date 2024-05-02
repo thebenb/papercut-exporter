@@ -4,6 +4,7 @@ from Metric import Metric
 import requests
 import re
 
+
 app = Flask(__name__)
 
 
@@ -13,12 +14,13 @@ def load_configuration():
     try:
         with open("config.json") as f:
             config = json.load(f)
+            return config
     except FileNotFoundError:
         print("Configuration file 'config.json' not found.")
         config = None
 
 
-def fetch_metrics(config):
+def fetch_metrics():
     urls = config.get("urls", [])
     all_metrics = {}
     for url in urls:
@@ -63,15 +65,14 @@ def convert_to_prometheus_format(metrics):
 # Endpoint to expose metrics in Prometheus format
 @app.route("/metrics")
 def metrics():
-    config = load_configuration()
-    if config:
-        papercut_metrics = fetch_metrics(config)
-        prometheus_metrics = convert_to_prometheus_format(papercut_metrics)
-        return Response(prometheus_metrics, mimetype="text/plain")
-    else:
-        return Response("Error loading configuration", status=500)
 
+    papercut_metrics = fetch_metrics()
+    prometheus_metrics = convert_to_prometheus_format(papercut_metrics)
+    return Response(prometheus_metrics, mimetype="text/plain")
+
+
+load_configuration()  # Load configuration no matter what
 
 if __name__ == "__main__":
-    load_configuration()  # Load configuration when the application starts
+
     app.run(host="0.0.0.0", port=config.get("port"))

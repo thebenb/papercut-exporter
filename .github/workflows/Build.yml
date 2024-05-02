@@ -32,7 +32,7 @@ jobs:
         pyinstaller --onefile --name papercut-exporter app_runner.py
 
     - name: List contents of current directory
-      run: ls
+      run: ls dist
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4.3.3

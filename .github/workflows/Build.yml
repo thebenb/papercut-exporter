@@ -27,10 +27,6 @@ jobs:
         pip install -r requirements.txt
         pip install pyminify pyinstaller
 
-    - name: Minify Python code
-      run: |
-        pyminify --gzip --keep-literals app_runner.py > app_runner_min.py
-
     - name: Build and package Python app
       run: |
         pyinstaller --onefile --name papercut-exporter app_runner_min.py

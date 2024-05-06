@@ -49,6 +49,8 @@ if __name__ == "__main__":
             print(
                 f"A new version ({latest_version}) is available. Please consider updating."
             )
+        else:
+            print(f"You are running the latest version: {latest_version}")
 
     if config:
         port = config.get("port", 8000)

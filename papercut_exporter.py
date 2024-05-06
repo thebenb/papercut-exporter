@@ -79,6 +79,17 @@ def metrics():
     return Response(prometheus_metrics, mimetype="text/plain")
 
 
+@app.route("/")
+def root():
+    message = (
+        "<h1>Papercut Exporter</h1>\n"
+        f"<ul><li><a href='/metrics'>Metrics</a></li>\n"
+        f"<li><a href='https://github.com/thebenb/papercut-exporter'>GitHub</a></li></ul>"
+    )
+
+    return message
+
+
 if __name__ == "__main__":
     config = load_configuration()
     if config:

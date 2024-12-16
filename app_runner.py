@@ -4,7 +4,7 @@ import json
 import requests
 
 config = None
-VERSION = "1.1.0"
+VERSION = "v1.1.1"  # Version, such as "v1.1.1".
 
 
 # Load configuration from config.json when the application starts
